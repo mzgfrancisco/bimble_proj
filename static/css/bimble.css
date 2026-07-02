@@ -1,0 +1,548 @@
+*{
+  font-family: Helvetica;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: wrap;
+}
+
+.container {
+  flex: 1;
+  min-width: 300px;
+}
+
+.login-form {
+  background-color: #D6B68F;
+  font-family: helvetica;
+  border-radius: 25px;
+  margin: 45px;
+  padding: 25px;
+}
+
+.login_content {
+  padding-top: 17px;
+  margin: 10px;
+  color: #335288;
+}
+
+.form-field {
+  border-radius: 15px;
+  width: 100%;
+  height: 48px;
+  padding: 16px;
+  border-color: white;
+  color: #335288;
+}
+
+.login-button {
+  border-radius: 16px;
+  display: block;
+  text-align: center;
+  margin: 16px auto;
+  background-color: #335288;
+  color: white;
+  width: 50%;
+  height: 46px;
+  border-color: #335288;
+}
+
+.signup-button {
+  border-radius: 16px;
+  padding-top: 10px;
+  display: block;
+  text-align: center;
+  margin: 16px auto;
+  background-color: #335288;
+  color: white;
+  width: 50%;
+  height: 46px;
+  border-color: #335288;
+  text-decoration: none;
+}
+
+.login-button:hover,
+.signup-button:hover {
+  background-color: #2a3e6d;
+  cursor: pointer;
+}
+
+.form-field:focus {
+  outline: none;
+  border-color: #335288;
+  outline: 2px solid #335288;
+}
+
+#criteria-container {
+  border: 2px solid #D6B68e;
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.valid {
+  background-color: #d4edda;
+}
+
+.invalid {
+  background-color: #f8d7da;
+}
+
+.forgot-pw-text-right {
+  text-align: right;
+  padding-top: 10px;
+  color: #335288;
+}
+
+.forgot-pw-text-right:hover a {
+  color: black;
+}
+
+.search-bar-home {
+  border-radius: 10px;
+  border-color: white;
+}
+
+.search-bar-home:focus {
+  outline: none;
+  border-color: #335288;
+  outline: 2px solid #335288;
+}
+
+.icon-button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.icon-button:hover {
+  color: #2a3e6d;
+}
+
+.profile-pic-btn {
+width: 26px;
+height: 26px; 
+border-radius: 50%; 
+object-fit: cover;  
+}
+
+.pet-cards-flex {
+display: flex;
+justify-content: left;
+padding: 10px 0;
+flex-wrap: wrap; /* Allow wrapping of items */
+}
+
+.pet-card {
+background-color: #D6B68F;
+flex-basis: calc(25% - 20px); /* Calculate width to fit 4 items per row */
+border: 1px solid #ccc;
+border-radius: 15px;
+overflow: hidden;
+margin: 10px;
+position: relative; /* For heart icon positioning */
+width: 150px;
+}
+
+.pet-card h1{
+font-size: 24px;
+font-weight: bold;
+color: white;
+}
+
+.pet-card p{
+font-size: 12px;
+}
+
+.pet-card img {
+width: 100%;
+height: 75%;
+border-radius: 0 0 15px 15px;
+object-fit: cover;
+aspect-ratio: 1 / 1;
+}
+
+
+.pet-info {
+padding: 10px;
+background-color: #D6B68F;
+color: white;
+}
+
+.heart-icon {
+position: absolute;
+top: 10px;
+right: 10px;
+cursor: pointer;
+color: gray;
+border: none; /* Remove any border */
+transition: 0.2s ease-in-out;
+font-size: 36px;
+}
+
+.heart-icon.clicked {
+color: red; /* Red color on click */
+}
+
+.create-form-container {
+  font-size: 14px;
+  font-weight: bold;
+  max-width: 480px;
+  width: 100%; 
+  margin: 0 auto;
+  padding: 16px;
+  background-color: #D6B68F;
+  border-radius: 25px;
+}
+
+
+input[type=text], 
+input[type=date]{
+  border: none;
+  border-radius: 15px;
+  padding: 16px;
+  width: 100%;
+  height: 36px;
+}
+
+select{
+  border: none;
+  padding-left: 16px;
+  border-radius: 15px;
+  width: 100%;
+  height: 36px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  border-radius: 20px;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.create-form-container input:focus,
+.create-form-container select:focus,
+.create-form-container date:focus {
+  outline: none;
+  border-color: #335288;
+  outline: 2px solid #335288;
+}
+
+.create-profile-btn{
+  border: none;
+  outline: none;
+  background-color: #335288;
+  color: white;
+  border-radius: 36px;
+  padding: 6px;
+  width: 40%;
+  transition: 0.2s ease;
+}
+
+.create-profile-btn:hover{
+outline: none;
+color: black;
+background-color: white;
+cursor: pointer;
+}
+
+.autocomplete-dropdown {
+  position: absolute;
+  z-index: 1000;
+  background-color: white;
+  border-radius: 5px;
+  max-height: 150px;
+  overflow-y: auto;
+  list-style: none;
+  padding-left: 2px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.autocomplete-dropdown li:hover {
+  background-color: #2a3e6d;
+  color: white;
+}
+
+#breed-autocomplete-results {
+  border-radius: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  position: absolute;
+  background: white;
+  z-index: 1000;
+}
+
+#breed-autocomplete-results li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+#breed-autocomplete-results li:hover {
+  background-color: #2a3e6d;
+  color: white;
+}
+
+
+.filter-option{
+  width: 10%;
+  border: 2px solid black
+}
+
+.notif-read-all{
+  margin-top: 25px;
+  background-color: #D6B68e;
+  border-radius: 25px;
+  border: none;
+  width: 10%;
+}
+
+.notif-clear-all{
+  margin-top: 25px;
+  color: white;
+  margin-left: 25px;
+  background-color: #335288;
+  border-radius: 25px;
+  border: none;
+  width: 10%;
+}
+
+.notification-list ul {
+  list-style-type: none; /* Remove default bullet points */
+  padding: 0 20px 0 20px; 
+}
+
+.notification-list li {
+  background-color: #f9f9f9; /* Light background for each notification */
+  border: 1px solid #ddd; /* Light border around each notification */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px; /* Padding inside each notification */
+  margin: 5px 0; /* Space between notifications */
+  transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+.notification-list li:hover {
+  background-color: #e0e0e0; /* Change background on hover */
+}
+
+.notification-list li.read {
+  color: #999; /* Change text color for read notifications */
+}
+
+.main-container {
+  display: flex;
+  height: 100vh;
+}
+
+.user-list {
+  width: 300px;
+  background-color: #f1f1f1;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.user-item:hover {
+  background-color: #d6b68e;
+}
+
+.user-item img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-right: 15px;
+}
+
+.user-item .user-info {
+  flex-grow: 1;
+}
+
+.user-item .user-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.user-item .message-preview {
+  color: #777;
+}
+
+.chat-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+.messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.message {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.message .sender {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.message.received .text {
+  background-color: #f1f1f1; /* Light grey for received messages */
+  color: #333; /* Dark text color for visibility */
+  align-self: flex-start;
+  border-radius: 12px 12px 12px 0;
+}
+
+.message.sent .text {
+  background-color: #d6b68e; /* Gold color for "You" messages */
+  color: white; /* White text for better readability */
+  align-self: flex-end;
+  border-radius: 12px 12px 0 12px;
+}
+
+.message.sent .text {
+  padding: 10px;
+  background-color: #D6B68E; /* More prominent gold for "You" */
+  color: white;
+}
+
+.message.sent {
+  flex-direction: row-reverse; /* Makes "You" messages align to the right */
+}
+
+.message.received .text {
+  padding: 10px;
+  background-color: #e1e1e1; /* A subtle light grey */
+}
+
+.message.received {
+  flex-direction: row; /* Makes other messages align to the left */
+}
+
+.input-container {
+  display: flex;
+  background-color: #fff;
+  /* border-top: 1px solid #ddd; */
+}
+
+.input-container input {
+  flex-grow: 1;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.send-button {
+  padding: 10px 16px;
+  border: none;
+  background-color: #D6B68e;
+  color: white;
+  border-radius: 5px;
+}
+
+.send-button:hover {
+  background-color: #c7a570;
+}
+
+.send-button i {
+  font-size: 16px;
+}
+.user-item.active {
+  background-color: #d6b68e;
+  font-weight: bold; 
+}
+
+.edit-profile-btn{
+  background-color: #D6B68e;
+  color: black;
+  border-radius: 16px;
+  width: 100%;
+  height: 48px;
+}
+
+.edit-profile-btn:hover{
+  background-color: #c7a570;
+}
+
+
+@media (max-width: 800px) {
+  .flex-container {
+      flex-direction: column;
+      padding-right: 0;
+  }
+
+  .flex-container img {
+      max-width: 100%;
+      height: auto;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .flex-container {
+      padding: 0;
+  }
+
+  .container {
+      margin: 10px;
+  }
+
+  .login_content {
+      font-size: 18px;
+  }
+
+  .form-field {
+      height: 40px;
+      padding: 12px;
+  }
+
+  .login-button,
+  .signup-button {
+      width: 80%;
+      height: 40px;
+  }
+
+  p {
+      font-size: 16px;
+  }
+
+  img {
+      width: 100%;
+      max-width: 80%;
+      height: auto;
+      margin: 0 auto;
+  }
+
+  .filter-option{
+    width: 20%;
+  }
+}

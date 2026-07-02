@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bimble.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Bimble</title>
+</head>
+<body>
+    <div class="container-fluid" style="background-color: #D6B68e; height: 5vw;">
+    </div>
+    <div class="container-fluid">
+        <div class="container">
+            <div class="flex-container">
+                <div class="container" style="padding: 60px;"> 
+                    <img src="{% static 'images/tagline.png' %}" alt="Tagline" style="max-width: 100%; height: auto;">
+                </div>
+                <div class="container">
+                    <div class="container login-form">
+                        <p style="text-align: center; color: #335288; font-size: 40px; font-weight: bold;">Welcome</p>
+                        <form id="signup-form" method="POST">
+                            {% csrf_token %}
+                            <p class="login_content" style="text-align: left;">Enter Username: </p>
+                            <input class="form-field" type="text" name="username" value="" required>
+
+                            <p class="login_content" style="text-align: left;">Enter E-mail: </p>
+                            <input class="form-field" type="email" name="email" value="" required oninput="validateEmail()">
+                            <p class="email-feedback" id="email-feedback" style="color: red; display: none;">Please enter a valid email address.</p>
+                            
+                            <p class="login_content" style="text-align: left;">Enter Password: </p>
+                            <input class="form-field" type="password" name="password" value="" required oninput="validatePassword()" onkeydown="checkEnter(event)">
+                            
+                            <p class="login_content" style="text-align: left;">Confirm Password: </p>
+                            <input class="form-field" type="password" name="confirm_password" required value="" oninput="validatePassword()" onkeydown="checkEnter(event)">
+                            
+                            <div id="criteria-container" style="display: none;">
+                                <ul id="criteria" style="list-style-type: none; padding: 0;">
+                                    <li id="length" style="color: red;">Password must be at least 8 characters long.</li>
+                                    <li id="uppercase" style="color: red;">Password must contain at least one uppercase letter.</li>
+                                    <li id="lowercase" style="color: red;">Password must contain at least one lowercase letter.</li>
+                                    <li id="number" style="color: red;">Password must contain at least one number.</li>
+                                    <li id="special" style="color: red;">Password must contain at least one special character.</li>
+                                </ul>
+                            </div>
+                            
+                            <input type="submit" class="login-button" value="Sign Up">
+                            
+                            <br>
+                            <hr style="color: black; padding-top: 20px;">
+                            <a href="{% url 'login' %}" class="signup-button">Log In</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+function validateEmail() {
+    const emailField = document.getElementById('email');
+    const emailFeedback = document.getElementById('email-feedback');
+    
+    // Check if the email is valid
+    if (emailField.value === '') {
+        emailField.classList.remove('invalid'); // Remove invalid class
+        emailField.classList.remove('valid'); // Remove valid class
+        emailFeedback.style.display = 'none'; // Hide feedback
+        emailField.style.backgroundColor = ''; // Reset background color
+    } else if (emailField.validity.valid) {
+        emailField.classList.add('valid');
+        emailField.classList.remove('invalid');
+        emailFeedback.style.display = 'none'; // Hide feedback
+        emailField.style.backgroundColor = ''; // Reset background color
+    } else if (emailField.value.includes('@')) {
+        // If "@" is present, check if there is at least one character after it
+        const atIndex = emailField.value.indexOf('@');
+        const hasCharAfterAt = atIndex < emailField.value.length - 1;
+        
+        if (hasCharAfterAt) {
+            emailField.classList.add('invalid');
+            emailField.classList.remove('valid');
+            emailFeedback.style.display = 'block'; // Show feedback
+            emailField.style.backgroundColor = '#f8d7da'; // Set background color to red
+        } else {
+            // If "@" is present but there is nothing after it
+            emailField.classList.remove('invalid'); // Remove invalid class
+            emailField.classList.remove('valid'); // Remove valid class
+            emailFeedback.style.display = 'none'; // Hide feedback
+            emailField.style.backgroundColor = ''; // Reset background color
+        }
+    } else {
+        // If "@" is not present
+        emailField.classList.remove('invalid'); // Remove invalid class
+        emailField.classList.remove('valid'); // Remove valid class
+        emailFeedback.style.display = 'none'; // Hide feedback
+        emailField.style.backgroundColor = ''; // Reset background color
+    }
+}
+
+function validatePassword() {
+    const password = document.getElementById('password').value;
+    const confirmPassword = document .getElementById('confirm-password').value;
+    const criteria = {
+        length: password.length >= 8,
+        uppercase: /[A-Z]/.test(password),
+        lowercase: /[a-z]/.test(password),
+        number: /\d/.test(password),
+        special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+    };
+
+    // Update criteria display
+    document.getElementById('length').style.color = criteria.length ? 'green' : 'red';
+    document.getElementById('uppercase').style.color = criteria.uppercase ? 'green' : 'red';
+    document.getElementById('lowercase').style.color = criteria.lowercase ? 'green' : 'red';
+    document.getElementById('number').style.color = criteria.number ? 'green' : 'red';
+    document.getElementById('special').style.color = criteria.special ? 'green' : 'red';
+
+    // Check if all criteria are met
+    const allCriteriaMet = Object.values(criteria).every(Boolean);
+    // Check if passwords match
+    const passwordsMatch = password === confirmPassword;
+
+    // Change the background color of the password fields based on the validation result
+    const passwordField = document.getElementById('password');
+    const confirmPasswordField = document.getElementById('confirm-password');
+
+    if (allCriteriaMet) {
+        passwordField.classList.add('valid');
+        passwordField.classList.remove('invalid');
+    } else {
+        passwordField.classList.add('invalid');
+        passwordField.classList.remove('valid');
+    }
+
+    // Set confirm password field to white while typing in password field
+    if (password !== '') {
+        confirmPasswordField.style.backgroundColor = ''; // Reset to default (white)
+
+        if (passwordsMatch) {
+            confirmPasswordField.classList.add('valid');
+            confirmPasswordField.classList.remove('invalid');
+            confirmPasswordField.style.backgroundColor = '#d4edda'; // Light green
+        } else {
+            confirmPasswordField.classList.add('invalid');
+            confirmPasswordField.classList.remove('valid');
+            confirmPasswordField.style.backgroundColor = '#f8d7da'; // Light red
+        }
+    } else {
+        // Reset confirm password field if password is empty
+        confirmPasswordField.classList.remove('valid', 'invalid'); // Remove both classes
+        confirmPasswordField.style.backgroundColor = ''; // Reset to default background color
+    }
+
+    // Show criteria if the password is not strong
+    const criteriaContainer = document.getElementById('criteria-container');
+    if (!allCriteriaMet) {
+        criteriaContainer.style.display = 'block'; // Show criteria container
+    } else {
+        criteriaContainer.style.display = 'none'; // Hide criteria container if strong
+    }
+
+    // Hide criteria if both password fields are valid
+    if (allCriteriaMet && passwordsMatch) {
+        criteriaContainer.style.display = 'none'; // Hide criteria container
+    }
+}
+
+function checkEnter(event) {
+    if (event.key === 'Enter') {
+        validatePassword(); // Validate password when Enter is pressed
+    }
+}
+
+document.getElementById('signup-form').addEventListener('submit', function(event) {
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+    const emailField = document.getElementById('email');
+
+    // Prevent form submission if passwords do not match or email is invalid
+    if (password !== confirmPassword || !emailField.validity.valid) {
+        event.preventDefault(); // Stop form from submitting
+    }
+});
+</script>
+</html>

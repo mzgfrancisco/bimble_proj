@@ -1,0 +1,100 @@
+{% extends "header.html" %} 
+{% block title %}<title>Profile</title>{% endblock %}
+{% block content %}
+{% load static %}
+    <style>
+    .detail-section{
+        background-color: #D6B68e;
+        border-radius: 25px;
+        padding: 26px;
+        margin: 0;
+    }
+    .detail-section p{
+       font-weight: bold;
+       margin: 0;
+    }
+    .viewprof-img{
+        width: 120px; 
+        height: 120px;
+        border-radius: 26px;
+        object-fit: cover; 
+        margin: 0 16px 16px 0;
+    }
+    </style>
+
+<div class="container-fluid">
+    <div class="container" style="display: flex; align-items: center; margin-top: 35px;">
+        <img src="{{ profile.profile_picture.url }}" style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
+        <div style="margin-left: 10px;">
+            <h1 style="margin: 0; text-transform: uppercase; font-weight: bold;">{{profile.name}}</h1>
+            <a style="text-decoration: none; color: black;" href="{% url 'editprofile' %}"><button class="edit-profile-btn">Edit Profile</button></a>
+        </div>
+    </div>
+
+    <div class="container details" style="margin-top: 26px; display: flex;">
+        <div style="flex: 1; margin-right: 20px;">
+            <h2 style="font-weight: bold;">About</h2>
+            <div class="detail-section">
+            <p>Breed: {{ profile.breed }}</p>
+            <p>Age: {{ age }} years old</p>
+            <p>Birthday: {{ profile.birthday }}</p>
+            <p>Gender: {{ profile.gender }}</p>
+            <p>Location: {{ profile.location }}</p>
+            </div>
+        </div>
+
+        <div style="flex: 1;">
+            <h2 style="font-weight: bold; display: flex; justify-content: space-between; align-items: center;">
+                <span>Gallery</span>
+                <i class="fas fa-plus" style="cursor: pointer; margin-left: 10px;" onclick="document.getElementById('fileInput').click();"></i>
+            </h2>
+            {% if messages %} 
+                {% for message in messages %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" id="fileInput" name="images" multiple accept="image/*" style="display: none;" onchange="this.form.submit()">
+            </form>
+            <div class="detail-section" id="imagePreview">
+                {% for image in gallery_images %}
+                    <div style="display: inline-block; position: relative;">
+                    <img src="{{ image.image.url }}" alt="Gallery Image" class="viewprof-img">
+                    <a href="{% url 'delete_gallery_image' image.id %}" style="position: absolute; top: 0; right: 0; background: red; color: white; padding: 2px 5px; text-decoration: none;">X</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="btn btn-danger" style="margin: 40px auto; display: block;" name="logout" onclick="window.location.href='{% url 'logout' %}'">Logout</button>
+
+<script>
+    function handleFiles(files) {
+        const imagePreview = document.getElementById('imagePreview');
+        imagePreview.innerHTML = ''; // Clear previous images
+
+        if (files.length > 8) {
+            alert('You can only upload a maximum of 8 images.');
+            return;
+        }
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.className = 'viewprof-img'; // Add your existing class for styling
+                imagePreview.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+{% endblock %}
